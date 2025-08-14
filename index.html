@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Lens Kenya | Simplified Governance Data</title>
+    <meta name="description"
+        content="Access simplified county budgets and project information in plain English and Swahili for better citizen participation">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1E3A8A",
+                        secondary: "#10B981",
+                        accent: "#F59E0B"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        swahili: ['Noto Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .swahili-text {
+            font-family: 'Noto Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-50">
+    <!-- Header with language toggle -->
+    <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="https://picsum.photos/40?random=1" alt="County logo" class="h-10 w-10 rounded-full">
+                    <h1 class="text-xl font-bold">Civic lens</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="languageToggle"
+                        class="px-3 py-1 bg-white text-primary rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                        <span class="english">Swahili</span>
+                        <span class="swahili-text hidden">English</span>
+                    </button>
+                    <button class="md:hidden" id="mobileMenuButton">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <nav id="mobileMenu" class="hidden md:hidden py-4">
+                <ul class="space-y-2">
+                    <li><a href="#" class="block py-2 hover:bg-primary-dark rounded px-2 transition english">Home</a>
+                    </li>
+                    <li><a href="#"
+                            class="block py-2 hover:bg-primary-dark rounded px-2 transition swahili-text hidden">Nyumbani</a>
+                    </li>
+                    <li><a href="#" class="block py-2 hover:bg-primary-dark rounded px-2 transition english">Budgets</a>
+                    </li>
+                    <li><a href="#"
+                            class="block py-2 hover:bg-primary-dark rounded px-2 transition swahili-text hidden">Bajeti</a>
+                    </li>
+                    <li><a href="#"
+                            class="block py-2 hover:bg-primary-dark rounded px-2 transition english">Projects</a></li>
+                    <li><a href="#"
+                            class="block py-2 hover:bg-primary-dark rounded px-2 transition swahili-text hidden">Miradi</a>
+                    </li>
+                    <li><a href="#" class="block py-2 hover:bg-primary-dark rounded px-2 transition english">About</a>
+                    </li>
+                    <li><a href="#"
+                            class="block py-2 hover:bg-primary-dark rounded px-2 transition swahili-text hidden">Kuhusu</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Desktop navigation -->
+        <nav class="hidden md:block bg-primary-dark">
+            <div class="container mx-auto px-4">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="block py-3 hover:bg-primary-darker px-2 transition english">Home</a></li>
+                    <li><a href="#"
+                            class="block py-3 hover:bg-primary-darker px-2 transition swahili-text hidden">Nyumbani</a>
+                    </li>
+                    <li><a href="#" class="block py-3 hover:bg-primary-darker px-2 transition english">Budgets</a></li>
+                    <li><a href="#"
+                            class="block py-3 hover:bg-primary-darker px-2 transition swahili-text hidden">Bajeti</a>
+                    </li>
+                    <li><a href="#" class="block py-3 hover:bg-primary-darker px-2 transition english">Projects</a></li>
+                    <li><a href="#"
+                            class="block py-3 hover:bg-primary-darker px-2 transition swahili-text hidden">Miradi</a>
+                    </li>
+                    <li><a href="#" class="block py-3 hover:bg-primary-darker px-2 transition english">About</a></li>
+                    <li><a href="#"
+                            class="block py-3 hover:bg-primary-darker px-2 transition swahili-text hidden">Kuhusu</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <!-- Hero section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-6 md:mb-0 md:pr-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4 english">Your Country, Your Voice</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-primary mb-4 swahili-text hidden">Nchi Yako, Sauti
+                        Yako</h2>
+                    <p class="text-gray-700 mb-4 english">
+                        Simplified access to county budgets and projects in plain English and Swahili.
+                        Stay informed and participate in governance.
+                    </p>
+                    <p class="text-gray-700 mb-4 swahili-text hidden">
+                        Ufikiaji rahisi wa bajeti za kaunti na miradi kwa Kiingereza na Kiswahili rahisi.
+                        Jihusishe na usimamizi wa kaunti.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="#"
+                            class="bg-secondary text-white px-6 py-2 rounded-full font-medium hover:bg-green-600 transition text-center english">
+                            Explore Budgets
+                        </a>
+                        <a href="#"
+                            class="bg-secondary text-white px-6 py-2 rounded-full font-medium hover:bg-green-600 transition text-center swahili-text hidden">
+                            Chunguza Bajeti
+                        </a>
+                        <a href="#"
+                            class="border border-primary text-primary px-6 py-2 rounded-full font-medium hover:bg-blue-50 transition text-center english">
+                            Track Projects
+                        </a>
+                        <a href="#"
+                            class="border border-primary text-primary px-6 py-2 rounded-full font-medium hover:bg-blue-50 transition text-center swahili-text hidden">
+                            Fuatilia Miradi
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/600/400?random=2" alt="Citizens participating in governance"
+                        class="w-full rounded-lg shadow-sm" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick stats -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h3 class="text-gray-500 text-sm font-medium mb-1 english">Total Budget</h3>
+                <h3 class="text-gray-500 text-sm font-medium mb-1 swahili-text hidden">Bajeti ya Jumla</h3>
+                <p class="text-2xl font-bold text-primary">KSh 12.8B</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h3 class="text-gray-500 text-sm font-medium mb-1 english">Active Projects</h3>
+                <h3 class="text-gray-500 text-sm font-medium mb-1 swahili-text hidden">Miradi Inayofanya Kazi</h3>
+                <p class="text-2xl font-bold text-primary">247</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h3 class="text-gray-500 text-sm font-medium mb-1 english">Completed</h3>
+                <h3 class="text-gray-500 text-sm font-medium mb-1 swahili-text hidden">Yamemalizika</h3>
+                <p class="text-2xl font-bold text-primary">89</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h3 class="text-gray-500 text-sm font-medium mb-1 english">Delayed</h3>
+                <h3 class="text-gray-500 text-sm font-medium mb-1 swahili-text hidden">Yamechelewa</h3>
+                <p class="text-2xl font-bold text-primary">32</p>
+            </div>
+        </section>
+
+        <!-- Featured projects -->
+        <section class="mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-primary english">Featured Projects</h2>
+                <h2 class="text-xl font-bold text-primary swahili-text hidden">Miradi Maarufu</h2>
+                <a href="#" class="text-secondary font-medium text-sm english">View All</a>
+                <a href="#" class="text-secondary font-medium text-sm swahili-text hidden">Tazama Zote</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project card 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://picsum.photos/400/300?random=3" alt="Road construction project"
+                        class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg english">Nairobi Outer Ring Road Upgrade</h3>
+                            <h3 class="font-bold text-lg swahili-text hidden">Uboreshaji wa Barabara ya Nairobi Outer
+                                Ring</h3>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full english">On
+                                Track</span>
+                            <span
+                                class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full swahili-text hidden">Inaendelea</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3 english">
+                            Upgrading 13km of the Outer Ring Road to dual carriageway with pedestrian walkways and
+                            cycling lanes.
+                        </p>
+                        <p class="text-gray-600 text-sm mb-3 swahili-text hidden">
+                            Uboreshaji wa kilomita 13 za Barabara ya Outer Ring kuwa barabara panda yenye njia za watu
+                            na baiskeli.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 english">Budget: KSh 2.3B</span>
+                            <span class="text-sm text-gray-500 swahili-text hidden">Bajeti: KSh 2.3B</span>
+                            <span class="text-sm text-gray-500 english">75% Complete</span>
+                            <span class="text-sm text-gray-500 swahili-text hidden">75% Imekamilika</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-secondary h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project card 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://picsum.photos/400/300?random=4" alt="Hospital construction"
+                        class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg english">Kisumu County Hospital Expansion</h3>
+                            <h3 class="font-bold text-lg swahili-text hidden">Upanuzi wa Hospitali ya Kaunti ya Kisumu
+                            </h3>
+                            <span
+                                class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full english">Delayed</span>
+                            <span
+                                class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full swahili-text hidden">Imechelewa</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3 english">
+                            Construction of new 200-bed wing with specialized maternity and pediatric units.
+                        </p>
+                        <p class="text-gray-600 text-sm mb-3 swahili-text hidden">
+                            Ujenzi wa paa jipya la vitanda 200 na vitengo maalum vya uzazi na watoto.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 english">Budget: KSh 1.8B</span>
+                            <span class="text-sm text-gray-500 swahili-text hidden">Bajeti: KSh 1.8B</span>
+                            <span class="text-sm text-gray-500 english">42% Complete</span>
+                            <span class="text-sm text-gray-500 swahili-text hidden">42% Imekamilika</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-yellow-400 h-2 rounded-full" style="width: 42%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project card 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://picsum.photos/400/300?random=5" alt="School construction"
+                        class="w-full h-48 object-cover" loading="lazy">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg english">Nakuru Primary Schools Upgrade</h3>
+                            <h3 class="font-bold text-lg swahili-text hidden">Uboreshaji wa Shule za Msingi Nakuru</h3>
+                            <span
+                                class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full english">Completed</span>
+                            <span
+                                class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full swahili-text hidden">Imekamilika</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3 english">
+                            Renovation of 15 primary schools with new classrooms, toilets, and water access.
+                        </p>
+                        <p class="text-gray-600 text-sm mb-3 swahili-text hidden">
+                            Ukarabati wa shule 15 za msingi na madarasa mapya, vyoo, na upatikanaji wa maji.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 english">Budget: KSh 650M</span>
+                            <span class="text-sm text-gray-500 swahili-text hidden">Bajeti: KSh 650M</span>
+                            <span class="text-sm text-gray-500 english">100% Complete</span>
+                            <span class="text-sm text-gray-500 swahili-text hidden">100% Imekamilika</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Budget breakdown -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold text-primary mb-4 english">County Budget Breakdown</h2>
+            <h2 class="text-xl font-bold text-primary mb-4 swahili-text hidden">Muhtasari wa Bajeti ya Kaunti</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/2 mb-6 md:mb-0 md:pr-6">
+                        <h3 class="font-medium text-gray-700 mb-3 english">Allocation by Sector</h3>
+                        <h3 class="font-medium text-gray-700 mb-3 swahili-text hidden">Ugawaji kwa Sekta</h3>
+                        <div class="h-64">
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="font-medium text-gray-700 mb-3 english">Top 5 Expenditures</h3>
+                        <h3 class="font-medium text-gray-700 mb-3 swahili-text hidden">Matumizi 5 ya Juu</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium english">Road Infrastructure</span>
+                                    <span class="text-sm font-medium swahili-text hidden">Miundombinu ya Barabara</span>
+                                    <span class="text-sm">KSh 3.2B</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium english">Healthcare</span>
+                                    <span class="text-sm font-medium swahili-text hidden">Afya</span>
+                                    <span class="text-sm">KSh 2.8B</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 22%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium english">Education</span>
+                                    <span class="text-sm font-medium swahili-text hidden">Elimu</span>
+                                    <span class="text-sm">KSh 2.1B</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-yellow-500 h-2 rounded-full" style="width: 16%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium english">Agriculture</span>
+                                    <span class="text-sm font-medium swahili-text hidden">Kilimo</span>
+                                    <span class="text-sm">KSh 1.5B</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 12%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-sm font-medium english">Water & Sanitation</span>
+                                    <span class="text-sm font-medium swahili-text hidden">Maji na Usafi</span>
+                                    <span class="text-sm">KSh 1.2B</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-purple-500 h-2 rounded-full" style="width: 9%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Youth engagement section -->
+        <section class="bg-primary text-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-2/3 mb-6 md:mb-0 md:pr-6">
+                    <h2 class="text-2xl font-bold mb-4 english">Youth Engagement Portal</h2>
+                    <h2 class="text-2xl font-bold mb-4 swahili-text hidden">Jukwaa la Vijana</h2>
+                    <p class="mb-4 english">
+                        Are you aged 18-35? Get involved in county governance through our youth programs,
+                        internships, and participation opportunities.
+                    </p>
+                    <p class="mb-4 swahili-text hidden">
+                        Je, una umri wa miaka 18-35? Jihusishe na usimamizi wa kaunti kupitia mipango yetu ya vijana,
+                        uanagenzi, na fursa za ushiriki.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="#"
+                            class="bg-white text-primary px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition text-center english">
+                            Learn More
+                        </a>
+                        <a href="#"
+                            class="bg-white text-primary px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition text-center swahili-text hidden">
+                            Jifunze Zaidi
+                        </a>
+                        <a href="#"
+                            class="border border-white text-white px-6 py-2 rounded-full font-medium hover:bg-primary-dark transition text-center english">
+                            Register Now
+                        </a>
+                        <a href="#"
+                            class="border border-white text-white px-6 py-2 rounded-full font-medium hover:bg-primary-dark transition text-center swahili-text hidden">
+                            Jisajili Sasa
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3">
+                    <img src="https://picsum.photos/400/300?random=6" alt="Youth group discussion"
+                        class="w-full rounded-lg shadow-sm" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback form -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold text-primary mb-4 english">Share Your Feedback</h2>
+            <h2 class="text-xl font-bold text-primary mb-4 swahili-text hidden">Shiriki Maoni Yako</h2>
+
+            <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1 english">Full Name</label>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1 swahili-text hidden">Jina
+                            Kamili</label>
+                        <input type="text" id="name"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1 english">Email
+                            Address</label>
+                        <label for="email"
+                            class="block text-sm font-medium text-gray-700 mb-1 swahili-text hidden">Barua Pepe</label>
+                        <input type="email" id="email"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label for="county" class="block text-sm font-medium text-gray-700 mb-1 english">County</label>
+                        <label for="county"
+                            class="block text-sm font-medium text-gray-700 mb-1 swahili-text hidden">Kaunti</label>
+                        <select id="county"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            <option value="" class="english">Select your county</option>
+                            <option value="" class="swahili-text hidden">Chagua kaunti yako</option>
+                            <option value="nairobi">Nairobi</option>
+                            <option value="kisumu">Kisumu</option>
+                            <option value="mombasa">Mombasa</option>
+                            <option value="nakuru">Nakuru</option>
+                            <option value="kiambu">Kiambu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="topic" class="block text-sm font-medium text-gray-700 mb-1 english">Feedback
+                            Topic</label>
+                        <label for="topic" class="block text-sm font-medium text-gray-700 mb-1 swahili-text hidden">Mada
+                            ya Maoni</label>
+                        <select id="topic"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                            <option value="" class="english">Select a topic</option>
+                            <option value="" class="swahili-text hidden">Chagua mada</option>
+                            <option value="budget" class="english">Budget Information</option>
+                            <option value="budget" class="swahili-text hidden">Taarifa ya Bajeti</option>
+                            <option value="project" class="english">Project Status</option>
+                            <option value="project" class="swahili-text hidden">Hali ya Mradi</option>
+                            <option value="participation" class="english">Citizen Participation</option>
+                            <option value="participation" class="swahili-text hidden">Ushiriki wa Wananchi</option>
+                            <option value="other" class="english">Other</option>
+                            <option value="other" class="swahili-text hidden">Nyingine</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1 english">Your
+                        Feedback</label>
+                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1 swahili-text hidden">Maoni
+                        Yako</label>
+                    <textarea id="message" rows="4"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"></textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="bg-primary text-white px-6 py-2 rounded-md font-medium hover:bg-primary-dark transition english">
+                        Submit Feedback
+                    </button>
+                    <button type="submit"
+                        class="bg-primary text-white px-6 py-2 rounded-md font-medium hover:bg-primary-dark transition swahili-text hidden">
+                        Wasilisha Maoni
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 english">County Connect</h3>
+                    <h3 class="text-lg font-bold mb-4 swahili-text hidden">County Connect</h3>
+                    <p class="text-gray-400 text-sm english">
+                        Simplifying county governance information for better citizen participation.
+                    </p>
+                    <p class="text-gray-400 text-sm swahili-text hidden">
+                        Kurahisisha taarifa za usimamizi wa kaunti kwa ushiriki bora wa wananchi.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 english">Quick Links</h3>
+                    <h3 class="text-lg font-bold mb-4 swahili-text hidden">Viungo vya Haraka</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition text-sm english">County
+                                Budgets</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Bajeti za
+                                Kaunti</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition text-sm english">Project
+                                Tracker</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Kifuatiliaji
+                                wa Miradi</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition text-sm english">Public
+                                Meetings</a></li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Mikutano
+                                ya Umma</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition text-sm english">Tenders</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Zabuni</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 english">Contact Us</h3>
+                    <h3 class="text-lg font-bold mb-4 swahili-text hidden">Wasiliana Nasi</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt text-gray-400"></i>
+                            <span class="text-gray-400 text-sm english">Nairobi, Kenya</span>
+                            <span class="text-gray-400 text-sm swahili-text hidden">Nairobi, Kenya</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-phone-alt text-gray-400"></i>
+                            <span class="text-gray-400 text-sm">+254 700 123456</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                            <span class="text-gray-400 text-sm">info@countyconnect.go.ke</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 english">Follow Us</h3>
+                    <h3 class="text-lg font-bold mb-4 swahili-text hidden">Tufuate</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <div class="mt-6">
+                        <h4 class="text-sm font-medium mb-2 english">Download Our App</h4>
+                        <h4 class="text-sm font-medium mb-2 swahili-text hidden">Pakua Programu Yetu</h4>
+                        <div class="flex space-x-2">
+                            <a href="#" class="block">
+                                <img src="https://picsum.photos/120/40?random=7" alt="Google Play Store" class="h-10">
+                            </a>
+                            <a href="#" class="block">
+                                <img src="https://picsum.photos/120/40?random=8" alt="Apple App Store" class="h-10">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0 english">
+                        &copy; 2023 County Connect Kenya. All rights reserved.
+                    </p>
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0 swahili-text hidden">
+                        &copy; 2023 County Connect Kenya. Haki zote zimehifadhiwa.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white transition text-sm english">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Sera
+                            ya Faragha</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-sm english">Terms of
+                            Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Sheria
+                            za Huduma</a>
+                        <a href="#" class="text-gray-400 hover:text-white transition text-sm english">Accessibility</a>
+                        <a href="#"
+                            class="text-gray-400 hover:text-white transition text-sm swahili-text hidden">Ufikiaji</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Define data at the beginning
+        const budgetData = {
+            labels: ["Roads", "Healthcare", "Education", "Agriculture", "Water", "Others"],
+            datasets: [{
+                data: [25, 22, 16, 12, 9, 16],
+                backgroundColor: [
+                    "#3B82F6",
+                    "#10B981",
+                    "#F59E0B",
+                    "#EF4444",
+                    "#8B5CF6",
+                    "#64748B"
+                ]
+            }]
+        };
+
+        const projectData = [
+            {
+                id: 1,
+                title: "Nairobi Outer Ring Road Upgrade",
+                titleSwahili: "Uboreshaji wa Barabara ya Nairobi Outer Ring",
+                status: "On Track",
+                statusSwahili: "Inaendelea",
+                description: "Upgrading 13km of the Outer Ring Road to dual carriageway with pedestrian walkways and cycling lanes.",
+                descriptionSwahili: "Uboreshaji wa kilomita 13 za Barabara ya Outer Ring kuwa barabara panda yenye njia za watu na baiskeli.",
+                budget: "KSh 2.3B",
+                progress: 75,
+                image: "https://picsum.photos/400/300?random=3"
+            },
+            {
+                id: 2,
+                title: "Kisumu County Hospital Expansion",
+                titleSwahili: "Upanuzi wa Hospitali ya Kaunti ya Kisumu",
+                status: "Delayed",
+                statusSwahili: "Imechelewa",
+                description: "Construction of new 200-bed wing with specialized maternity and pediatric units.",
+                descriptionSwahili: "Ujenzi wa paa jipya la vitanda 200 na vitengo maalum vya uzazi na watoto.",
+                budget: "KSh 1.8B",
+                progress: 42,
+                image: "https://picsum.photos/400/300?random=4"
+            },
+            {
+                id: 3,
+                title: "Nakuru Primary Schools Upgrade",
+                titleSwahili: "Uboreshaji wa Shule za Msingi Nakuru",
+                status: "Completed",
+                statusSwahili: "Imekamilika",
+                description: "Renovation of 15 primary schools with new classrooms, toilets, and water access.",
+                descriptionSwahili: "Ukarabati wa shule 15 za msingi na madarasa mapya, vyoo, na upatikanaji wa maji.",
+                budget: "KSh 650M",
+                progress: 100,
+                image: "https://picsum.photos/400/300?random=5"
+            }
+        ];
+
+        // Initialize chart
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: budgetData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+
+            // Language toggle functionality
+            const languageToggle = document.getElementById('languageToggle');
+            languageToggle.addEventListener('click', function () {
+                document.querySelectorAll('.english').forEach(el => el.classList.toggle('hidden'));
+                document.querySelectorAll('.swahili-text').forEach(el => el.classList.toggle('hidden'));
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Prevent default anchor behavior
+            document.querySelectorAll('a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // In a real implementation, this would handle navigation
+                    console.log('Navigation to:', this.getAttribute('href'));
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
